@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
 /// Base text field widget configuration
-abstract class _BaseAppTextField extends HookWidget {
+abstract class _BaseAppTextField extends StatelessWidget {
   final String? label;
   final String? hint;
   final String? initialValue;
@@ -57,11 +56,7 @@ abstract class _BaseAppTextField extends HookWidget {
   });
 
   /// Get the input decoration for this text field
-  InputDecoration getDecoration(
-    BuildContext context,
-    TextEditingController controller,
-    ValueNotifier<bool> showPassword,
-  ) {
+  InputDecoration getDecoration(BuildContext context) {
     final theme = Theme.of(context);
     final borderCol = borderColor ?? Colors.grey.shade300;
     final focusedBorderCol = focusedBorderColor ?? theme.primaryColor;
@@ -76,23 +71,7 @@ abstract class _BaseAppTextField extends HookWidget {
           ? Icon(prefixIcon, color: Colors.grey)
           : null,
       suffixIcon: suffixIcon != null || obscureText
-          ? IconButton(
-              icon: Icon(
-                obscureText
-                    ? (showPassword.value
-                          ? Icons.visibility_off
-                          : Icons.visibility)
-                    : suffixIcon,
-                color: Colors.grey,
-              ),
-              onPressed: () {
-                if (obscureText) {
-                  showPassword.value = !showPassword.value;
-                } else {
-                  onSuffixIconTap?.call();
-                }
-              },
-            )
+          ? Icon(suffixIcon, color: Colors.grey)
           : null,
       filled: true,
       fillColor: bgColor,
@@ -123,16 +102,6 @@ abstract class _BaseAppTextField extends HookWidget {
   /// Build the text field
   @override
   Widget build(BuildContext context) {
-    final controller = useTextEditingController(text: initialValue);
-    final focusNode = useFocusNode();
-    final showPassword = useState(false);
-
-    useEffect(() {
-      return () {
-        // Cleanup is handled by hooks
-      };
-    }, []);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -152,15 +121,15 @@ abstract class _BaseAppTextField extends HookWidget {
           controller: controller,
           focusNode: focusNode,
           enabled: enabled,
-          obscureText: obscureText && !showPassword.value,
-          maxLines: obscureText && showPassword.value ? 1 : maxLines,
+          obscureText: obscureText,
+          maxLines: obscureText ? 1 : maxLines,
           minLines: minLines,
           maxLength: maxLength,
           keyboardType: keyboardType,
           onChanged: onChanged,
           onFieldSubmitted: onSubmitted,
           validator: validator,
-          decoration: getDecoration(context, controller, showPassword),
+          decoration: getDecoration(context),
         ),
       ],
     );
