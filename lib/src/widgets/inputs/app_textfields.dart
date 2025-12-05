@@ -1,367 +1,194 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_toolkit/flutter_toolkit.dart';
 
-/// Base text field widget configuration
-abstract class _BaseAppTextField extends StatelessWidget {
-  final String? label;
-  final String? hint;
-  final String? initialValue;
-  final ValueChanged<String>? onChanged;
-  final ValueChanged<String>? onSubmitted;
-  final FormFieldValidator<String>? validator;
+class OutlinedTextField extends StatelessWidget {
+  final TextEditingController? controller;
+  final double? height;
+  final String? hintText, labelText;
+  final TextInputType? keyboardType;
   final bool obscureText;
-  final IconData? prefixIcon;
-  final IconData? suffixIcon;
-  final VoidCallback? onSuffixIconTap;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final String? Function(String?)? validator;
+  final TextStyle? textStyle;
+  final TextStyle? hintStyle;
+  final InputBorder? enabledBorder;
+  final InputBorder? focusedBorder;
+  final InputBorder? errorBorder;
+  final InputBorder? focusedErrorBorder;
+  final EdgeInsetsGeometry? contentPadding;
+  final Widget? topTrailingWidget;
   final int? maxLines;
   final int? minLines;
-  final int? maxLength;
-  final TextInputType keyboardType;
-  final bool enabled;
-  final TextEditingController? controller;
-  final FocusNode? focusNode;
-  final Color? borderColor;
-  final Color? focusedBorderColor;
-  final Color? backgroundColor;
-  final double borderRadius;
-  final EdgeInsets padding;
-  final String? prefixText;
-  final String? suffixText;
+  final bool? expands;
+  final bool readOnly;
+  final Function()? onTap;
+  final Function(String)? onChanged;
 
-  const _BaseAppTextField({
+  const OutlinedTextField({
     super.key,
-    this.label,
-    this.hint,
-    this.initialValue,
-    this.onChanged,
-    this.onSubmitted,
-    this.validator,
+    this.controller,
+    this.height,
+    this.hintText,
+    this.labelText,
+    this.keyboardType,
     this.obscureText = false,
     this.prefixIcon,
     this.suffixIcon,
-    this.onSuffixIconTap,
+    this.validator,
+    this.textStyle,
+    this.hintStyle,
+    this.enabledBorder,
+    this.focusedBorder,
+    this.errorBorder,
+    this.focusedErrorBorder,
+    this.contentPadding,
+    this.topTrailingWidget,
     this.maxLines = 1,
     this.minLines,
-    this.maxLength,
-    this.keyboardType = TextInputType.text,
-    this.enabled = true,
-    this.controller,
-    this.focusNode,
-    this.borderColor,
-    this.focusedBorderColor,
-    this.backgroundColor,
-    this.borderRadius = 8.0,
-    this.padding = const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-    this.prefixText,
-    this.suffixText,
+    this.expands = false,
+    this.readOnly = false,
+    this.onTap,
+    this.onChanged,
   });
 
-  /// Get the input decoration for this text field
-  InputDecoration getDecoration(BuildContext context) {
-    final theme = Theme.of(context);
-    final borderCol = borderColor ?? Colors.grey.shade300;
-    final focusedBorderCol = focusedBorderColor ?? theme.primaryColor;
-    final bgColor = backgroundColor ?? Colors.grey.shade50;
-
-    return InputDecoration(
-      labelText: label,
-      hintText: hint,
-      prefixText: prefixText,
-      suffixText: suffixText,
-      prefixIcon: prefixIcon != null
-          ? Icon(prefixIcon, color: Colors.grey)
-          : null,
-      suffixIcon: suffixIcon != null || obscureText
-          ? Icon(suffixIcon, color: Colors.grey)
-          : null,
-      filled: true,
-      fillColor: bgColor,
-      contentPadding: padding,
-      enabledBorder: getEnabledBorder(borderCol),
-      focusedBorder: getFocusedBorder(focusedBorderCol),
-      errorBorder: getErrorBorder(),
-      focusedErrorBorder: getFocusedErrorBorder(),
-      disabledBorder: getDisabledBorder(),
-    );
-  }
-
-  /// Override to provide custom enabled border
-  InputBorder getEnabledBorder(Color borderColor);
-
-  /// Override to provide custom focused border
-  InputBorder getFocusedBorder(Color focusedBorderColor);
-
-  /// Override to provide custom error border
-  InputBorder getErrorBorder();
-
-  /// Override to provide custom focused error border
-  InputBorder getFocusedErrorBorder();
-
-  /// Override to provide custom disabled border
-  InputBorder getDisabledBorder();
-
-  /// Build the text field
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (label != null)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: Text(
-              label!,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: Colors.grey.shade800,
-              ),
+        if (labelText != null && labelText!.isNotEmpty)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              StyledText(labelText!, fontWeight: FontWeight.w500),
+              if (topTrailingWidget != null) topTrailingWidget!,
+            ],
+          ),
+        YGap(4),
+        SizedBox(
+          height: height ?? 35,
+          child: TextFormField(
+            controller: controller,
+            textCapitalization: TextCapitalization.sentences,
+            keyboardType: keyboardType,
+            obscureText: obscureText,
+            validator: validator,
+            style: textStyle,
+            maxLines: maxLines,
+            minLines: minLines,
+            expands: expands ?? false,
+            readOnly: readOnly,
+            onTap: onTap,
+            onChanged: onChanged,
+            cursorHeight: 17,
+            textInputAction: TextInputAction.next,
+            decoration: InputDecoration(
+              labelText: labelText,
+              labelStyle: TextStyle(fontSize: 13),
+              hintText: hintText,
+              hintStyle: hintStyle ?? TextStyle(fontSize: 12),
+              prefixIcon: prefixIcon,
+              suffixIcon: suffixIcon,
+              contentPadding:
+                  contentPadding ?? const EdgeInsets.symmetric(horizontal: 16),
+              enabledBorder:
+                  enabledBorder ??
+                  OutlineInputBorder(
+                    borderSide: BorderSide(color: colorScheme.inversePrimary),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+              focusedBorder:
+                  focusedBorder ??
+                  OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.blue),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+              errorBorder:
+                  errorBorder ??
+                  OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.red),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+              focusedErrorBorder:
+                  focusedErrorBorder ??
+                  OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.redAccent),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
             ),
           ),
-        TextFormField(
-          controller: controller,
-          focusNode: focusNode,
-          enabled: enabled,
-          obscureText: obscureText,
-          maxLines: obscureText ? 1 : maxLines,
-          minLines: minLines,
-          maxLength: maxLength,
-          keyboardType: keyboardType,
-          onChanged: onChanged,
-          onFieldSubmitted: onSubmitted,
-          validator: validator,
-          decoration: getDecoration(context),
         ),
       ],
     );
   }
 }
 
-/// A customizable outlined text field widget using Flutter Hooks.
-class AppOutlinedTextField extends _BaseAppTextField {
-  const AppOutlinedTextField({
+class PlainTextField extends StatelessWidget {
+  final TextEditingController controller;
+  final String? hintText;
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
+  final bool obscureText;
+  final void Function(String)? onChanged;
+  final void Function(String)? onSubmitted;
+  final FocusNode? focusNode;
+  final int? hintMaxLines;
+  final bool isHeader;
+  final bool expands;
+  final int? maxlines;
+
+  const PlainTextField({
     super.key,
-    super.label,
-    super.hint,
-    super.initialValue,
-    super.onChanged,
-    super.onSubmitted,
-    super.validator,
-    super.obscureText,
-    super.prefixIcon,
-    super.suffixIcon,
-    super.onSuffixIconTap,
-    super.maxLines,
-    super.minLines,
-    super.maxLength,
-    super.keyboardType,
-    super.enabled,
-    super.controller,
-    super.focusNode,
-    super.borderColor,
-    super.focusedBorderColor,
-    super.backgroundColor,
-    super.borderRadius,
-    super.padding,
-    super.prefixText,
-    super.suffixText,
+    required this.controller,
+    this.hintText,
+    this.keyboardType,
+    this.textInputAction,
+    this.obscureText = false,
+    this.onChanged,
+    this.onSubmitted,
+    this.focusNode,
+    this.hintMaxLines,
+    this.isHeader = false,
+    this.expands = false,
+    this.maxlines,
   });
 
   @override
-  InputBorder getEnabledBorder(Color borderColor) {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(borderRadius),
-      borderSide: BorderSide(color: borderColor),
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final tStyle = TextStyle(
+      fontSize: isHeader ? 24 : 14,
+      fontWeight: isHeader ? FontWeight.w700 : FontWeight.w400,
+      color: colorScheme.onSurface,
+    );
+
+    return TextField(
+      style: tStyle,
+      controller: controller,
+      textCapitalization: TextCapitalization.sentences,
+      focusNode: focusNode,
+      keyboardType: keyboardType,
+      textInputAction: textInputAction,
+      obscureText: obscureText,
+      onChanged: onChanged,
+      maxLines: maxlines,
+      expands: expands,
+      onSubmitted:
+          onSubmitted ??
+          (_) {
+            focusNode?.unfocus();
+          },
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintMaxLines:
+            hintMaxLines ?? (controller.text.trim().isNotEmpty ? 1 : 3),
+        hintStyle: tStyle.copyWith(color: colorScheme.onSurfaceVariant),
+        border: InputBorder.none,
+        isDense: true,
+      ),
     );
   }
-
-  @override
-  InputBorder getFocusedBorder(Color focusedBorderColor) {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(borderRadius),
-      borderSide: BorderSide(color: focusedBorderColor, width: 2),
-    );
-  }
-
-  @override
-  InputBorder getErrorBorder() {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(borderRadius),
-      borderSide: BorderSide(color: Colors.red.shade300),
-    );
-  }
-
-  @override
-  InputBorder getFocusedErrorBorder() {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(borderRadius),
-      borderSide: BorderSide(color: Colors.red, width: 2),
-    );
-  }
-
-  @override
-  InputBorder getDisabledBorder() {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(borderRadius),
-      borderSide: BorderSide(color: Colors.grey.shade200),
-    );
-  }
-}
-
-/// A customizable filled text field widget using Flutter Hooks.
-class AppFilledTextField extends _BaseAppTextField {
-  const AppFilledTextField({
-    super.key,
-    super.label,
-    super.hint,
-    super.initialValue,
-    super.onChanged,
-    super.onSubmitted,
-    super.validator,
-    super.obscureText,
-    super.prefixIcon,
-    super.suffixIcon,
-    super.onSuffixIconTap,
-    super.maxLines,
-    super.minLines,
-    super.maxLength,
-    super.keyboardType,
-    super.enabled,
-    super.controller,
-    super.focusNode,
-    super.borderColor,
-    super.focusedBorderColor,
-    super.backgroundColor = const Color(0xFFF5F5F5),
-    super.borderRadius,
-    super.padding,
-    super.prefixText,
-    super.suffixText,
-  });
-
-  @override
-  InputBorder getEnabledBorder(Color borderColor) {
-    return UnderlineInputBorder(borderSide: BorderSide(color: borderColor));
-  }
-
-  @override
-  InputBorder getFocusedBorder(Color focusedBorderColor) {
-    return UnderlineInputBorder(
-      borderSide: BorderSide(color: focusedBorderColor, width: 2),
-    );
-  }
-
-  @override
-  InputBorder getErrorBorder() {
-    return UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.red.shade300),
-    );
-  }
-
-  @override
-  InputBorder getFocusedErrorBorder() {
-    return UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.red, width: 2),
-    );
-  }
-
-  @override
-  InputBorder getDisabledBorder() {
-    return UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey.shade200),
-    );
-  }
-}
-
-/// A customizable underline text field widget using Flutter Hooks.
-class AppUnderlineTextField extends _BaseAppTextField {
-  const AppUnderlineTextField({
-    super.key,
-    super.label,
-    super.hint,
-    super.initialValue,
-    super.onChanged,
-    super.onSubmitted,
-    super.validator,
-    super.obscureText,
-    super.prefixIcon,
-    super.suffixIcon,
-    super.onSuffixIconTap,
-    super.maxLines,
-    super.minLines,
-    super.maxLength,
-    super.keyboardType,
-    super.enabled,
-    super.controller,
-    super.focusNode,
-    super.borderColor,
-    super.focusedBorderColor,
-    super.backgroundColor = Colors.transparent,
-    super.borderRadius = 0,
-    super.padding,
-    super.prefixText,
-    super.suffixText,
-  });
-
-  @override
-  InputBorder getEnabledBorder(Color borderColor) {
-    return UnderlineInputBorder(borderSide: BorderSide(color: borderColor));
-  }
-
-  @override
-  InputBorder getFocusedBorder(Color focusedBorderColor) {
-    return UnderlineInputBorder(
-      borderSide: BorderSide(color: focusedBorderColor, width: 2),
-    );
-  }
-
-  @override
-  InputBorder getErrorBorder() {
-    return UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.red.shade300),
-    );
-  }
-
-  @override
-  InputBorder getFocusedErrorBorder() {
-    return UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.red, width: 2),
-    );
-  }
-
-  @override
-  InputBorder getDisabledBorder() {
-    return UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey.shade200),
-    );
-  }
-}
-
-/// Legacy AppTextField widget - defaults to outlined variant
-class AppTextField extends AppOutlinedTextField {
-  const AppTextField({
-    super.key,
-    super.label,
-    super.hint,
-    super.initialValue,
-    super.onChanged,
-    super.onSubmitted,
-    super.validator,
-    super.obscureText,
-    super.prefixIcon,
-    super.suffixIcon,
-    super.onSuffixIconTap,
-    super.maxLines,
-    super.minLines,
-    super.maxLength,
-    super.keyboardType,
-    super.enabled,
-    super.controller,
-    super.focusNode,
-    super.borderColor,
-    super.focusedBorderColor,
-    super.backgroundColor,
-    super.borderRadius,
-    super.padding,
-    super.prefixText,
-    super.suffixText,
-  });
 }

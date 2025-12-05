@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_toolkit/flutter_toolkit.dart';
 
 extension ContextExtensions on BuildContext {
   // Device type checks
   bool get isMobile => screenWidth < 600;
   bool get isTablet => screenWidth >= 600 && screenWidth < 1200;
   bool get isDesktop => screenWidth >= 1200;
-  
+
   // MediaQuery shortcuts
   Size get screenSize => MediaQuery.of(this).size;
   double get screenWidth => screenSize.width;
@@ -32,6 +33,18 @@ extension ContextExtensions on BuildContext {
 
   void pushReplacement(Widget page) {
     Navigator.of(this).pushReplacement(MaterialPageRoute(builder: (_) => page));
+  }
+
+  void showDialog(Widget content, {Color? bgColor, bool dismissible = true}) {
+    AppDialog.dialog(this, content, bgColor: bgColor, dismissible: dismissible);
+  }
+
+  void showErrorSnackBar(String message) {
+    AppSnackbar.show(this, title: message, isWarning: true);
+  }
+
+  void showSuccessSnackBar(String message) {
+    AppSnackbar.show(this, title: message, isWarning: false);
   }
 
   // Keyboard shortcut
