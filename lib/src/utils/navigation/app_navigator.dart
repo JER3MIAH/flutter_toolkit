@@ -64,7 +64,9 @@ class AppNavigator {
           curve: Curves.easeOut,
           child: Container(
             constraints: BoxConstraints(maxHeight: sheetHeight),
-            decoration: BoxDecoration(color: backgroundColor ?? Colors.white),
+            decoration: BoxDecoration(
+              color: backgroundColor ?? Theme.of(context).colorScheme.surface,
+            ),
             child: SingleChildScrollView(
               child: Padding(padding: const EdgeInsets.all(16.0), child: child),
             ),
