@@ -35,18 +35,27 @@ extension ContextExtensions on BuildContext {
     Navigator.of(this).pushReplacement(MaterialPageRoute(builder: (_) => page));
   }
 
-  void showDialog(Widget content, {Color? bgColor, bool dismissible = true}) {
-    AppDialog.dialog(this, content, bgColor: bgColor, dismissible: dismissible);
+  Future<T?> showDialog<T>(
+    Widget content, {
+    Color? bgColor,
+    bool dismissible = true,
+  }) {
+    return AppDialog.dialog(
+      this,
+      content,
+      bgColor: bgColor,
+      dismissible: dismissible,
+    );
   }
 
-  void showBottomSheet(
+  Future<T?> showBottomSheet<T>(
     Widget content, {
     bool isScrollControlled = true,
     bool useRootNavigator = true,
     Color? backgroundColor,
     double? maxHeight,
   }) {
-    AppNavigator(this).showBottomSheet(
+    return AppNavigator(this).showBottomSheet<T>(
       child: content,
       backgroundColor: backgroundColor,
       isScrollControlled: isScrollControlled,
