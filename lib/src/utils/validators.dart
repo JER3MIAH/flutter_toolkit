@@ -131,4 +131,12 @@ class Validators {
     }
     return null;
   }
+
+  /// Validates that a field contains non-empty text (not just spaces)
+  static String? validateRequiredText(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'This field cannot be empty';
+    }
+    return null;
+  }
 }
