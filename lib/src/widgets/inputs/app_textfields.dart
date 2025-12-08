@@ -57,88 +57,102 @@ class OutlinedTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final ValueNotifier<bool> touchedNotifier = ValueNotifier(
+      controller?.text.isNotEmpty ?? false,
+    );
 
-    return FormField<String>(
-      validator: validator,
-      builder: (state) {
-        final hasError = state.hasError;
+    return ValueListenableBuilder<bool>(
+      valueListenable: touchedNotifier,
+      builder: (context, touched, _) {
+        return FormField<String>(
+          initialValue: controller?.text,
+          validator: (value) {
+            if (!touched) return null; // Don't validate untouched fields
+            if (validator != null) return validator!(value);
+            return null;
+          },
+          builder: (state) {
+            final hasError = state.hasError;
 
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (labelText != null && labelText!.isNotEmpty && showTopLabel)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  StyledText(labelText!, fontWeight: FontWeight.w500),
-                  if (topTrailingWidget != null) topTrailingWidget!,
-                ],
-              ),
-            YGap(4),
-
-            /// ⬇ Increase height when there's an error
-            SizedBox(
-              height: (height ?? 35) + (hasError ? 22 : 0),
-              child: TextFormField(
-                controller: controller,
-                textCapitalization: TextCapitalization.sentences,
-                keyboardType: keyboardType,
-                obscureText: obscureText,
-                style: textStyle,
-                maxLines: maxLines,
-                minLines: minLines,
-                expands: expands ?? false,
-                readOnly: readOnly,
-                onTap: onTap,
-                onChanged: (val) {
-                  state.didChange(val);
-                  onChanged?.call(val);
-                },
-                cursorHeight: 17,
-                textInputAction: TextInputAction.next,
-                decoration: InputDecoration(
-                  labelText: labelText,
-                  labelStyle: const TextStyle(fontSize: 13),
-                  hintText: hintText,
-                  hintStyle: hintStyle ?? const TextStyle(fontSize: 12),
-                  prefixIcon: prefixIcon,
-                  suffixIcon: suffixIcon,
-                  contentPadding:
-                      contentPadding ??
-                      const EdgeInsets.symmetric(horizontal: 16),
-                  enabledBorder:
-                      enabledBorder ??
-                      OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: colorScheme.inversePrimary,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                  focusedBorder:
-                      focusedBorder ??
-                      OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.blue),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                  errorBorder:
-                      errorBorder ??
-                      OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.red),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                  focusedErrorBorder:
-                      focusedErrorBorder ??
-                      OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.redAccent),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                  errorText: state.errorText,
-                  errorMaxLines: 2,
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (labelText != null && labelText!.isNotEmpty && showTopLabel)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      StyledText(labelText!, fontWeight: FontWeight.w500),
+                      if (topTrailingWidget != null) topTrailingWidget!,
+                    ],
+                  ),
+                YGap(4),
+                SizedBox(
+                  height: (height ?? 35) + (hasError ? 22 : 0),
+                  child: TextFormField(
+                    controller: controller,
+                    textCapitalization: TextCapitalization.sentences,
+                    keyboardType: keyboardType,
+                    obscureText: obscureText,
+                    style: textStyle,
+                    maxLines: maxLines,
+                    minLines: minLines,
+                    expands: expands ?? false,
+                    readOnly: readOnly,
+                    onTap: onTap,
+                    onChanged: (val) {
+                      state.didChange(val);
+                      if (!touched) touchedNotifier.value = true;
+                      onChanged?.call(val);
+                    },
+                    cursorHeight: 17,
+                    textInputAction: TextInputAction.next,
+                    decoration: InputDecoration(
+                      labelText: labelText,
+                      labelStyle: const TextStyle(fontSize: 13),
+                      hintText: hintText,
+                      hintStyle: hintStyle ?? const TextStyle(fontSize: 12),
+                      prefixIcon: prefixIcon,
+                      suffixIcon: suffixIcon,
+                      contentPadding:
+                          contentPadding ??
+                          const EdgeInsets.symmetric(horizontal: 16),
+                      enabledBorder:
+                          enabledBorder ??
+                          OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: colorScheme.inversePrimary,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                      focusedBorder:
+                          focusedBorder ??
+                          OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.blue),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                      errorBorder:
+                          errorBorder ??
+                          OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.red),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                      focusedErrorBorder:
+                          focusedErrorBorder ??
+                          OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Colors.redAccent,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                      errorText: state.errorText,
+                      errorMaxLines: 2,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ],
+              ],
+            );
+          },
         );
       },
     );
