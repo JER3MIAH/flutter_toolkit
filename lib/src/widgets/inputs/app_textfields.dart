@@ -91,7 +91,10 @@ class OutlinedTextField extends StatelessWidget {
                 expands: expands ?? false,
                 readOnly: readOnly,
                 onTap: onTap,
-                onChanged: onChanged,
+                onChanged: (val) {
+                  state.didChange(val);
+                  onChanged?.call(val);
+                },
                 cursorHeight: 17,
                 textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
