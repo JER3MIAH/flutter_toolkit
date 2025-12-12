@@ -134,6 +134,39 @@ class Validators {
     return null;
   }
 
+  /// Makes sure the values passed to each field doesn't go beyond the [maxTotal]
+  static String? validateNumericFieldsTotal(
+    List<String?> values, {
+    bool isOptional = false,
+    double maxTotal = 100,
+  }) {
+    // If optional and all empty → allow it
+    if (isOptional && values.every((v) => v == null || v.isEmpty)) {
+      return null;
+    }
+
+    double total = 0;
+
+    for (final value in values) {
+      if (value == null || value.isEmpty) {
+        return 'All fields are required';
+      }
+
+      final parsed = double.tryParse(value);
+      if (parsed == null) {
+        return 'Please enter valid numbers';
+      }
+
+      total += parsed;
+    }
+
+    if (total > maxTotal) {
+      return 'Total score cannot exceed $maxTotal';
+    }
+
+    return null;
+  }
+
   /// Validates that a field contains non-empty text (not just spaces)
   static String? validateRequiredText(
     String? value, {
