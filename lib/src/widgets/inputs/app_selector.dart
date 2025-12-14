@@ -69,6 +69,9 @@ class AppSelector extends StatefulWidget {
 
 class _AppSelectorState extends State<AppSelector> {
   late FocusNode _focusNode;
+  OverlayEntry? _overlayEntry;
+  final LayerLink _layerLink = LayerLink();
+  bool _isOpen = false;
 
   @override
   void initState() {
@@ -78,6 +81,7 @@ class _AppSelectorState extends State<AppSelector> {
 
   @override
   void dispose() {
+    _closeDropdown();
     _focusNode.dispose();
     super.dispose();
   }
@@ -107,48 +111,56 @@ class _AppSelectorState extends State<AppSelector> {
             ),
           ),
         SizedBox(
-          height: widget.height ?? 48,
-          child: Focus(
-            focusNode: _focusNode,
-            onFocusChange: (_) => setState(() {}),
-            child: GestureDetector(
-              onTap: () => _showMenu(context),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: _focusNode.hasFocus ? focusedBorderCol : borderCol,
-                    width: _focusNode.hasFocus ? 2 : 1,
-                  ),
-                ),
-                padding:
-                    widget.contentPadding ??
-                    const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        isSelected
-                            ? widget.value!
-                            : widget.hintText ?? 'Select...',
-                        style: isSelected
-                            ? widget.textStyle ?? const TextStyle(fontSize: 14)
-                            : widget.hintStyle ??
-                                  TextStyle(
-                                    fontSize: 14,
-                                    color: colorScheme.onSurfaceVariant,
-                                  ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
+          height: widget.height ?? 38,
+          child: CompositedTransformTarget(
+            link: _layerLink,
+            child: Focus(
+              focusNode: _focusNode,
+              onFocusChange: (_) => setState(() {}),
+              child: GestureDetector(
+                onTap: _toggleDropdown,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: _focusNode.hasFocus ? focusedBorderCol : borderCol,
+                      width: _focusNode.hasFocus ? 2 : 1,
                     ),
-                    if (widget.trailingWidget != null)
-                      widget.trailingWidget!
-                    else
-                      Icon(
-                        Icons.expand_more,
-                        color: colorScheme.onSurfaceVariant,
+                  ),
+                  padding:
+                      widget.contentPadding ??
+                      const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          isSelected
+                              ? widget.value!
+                              : widget.hintText ?? 'Select...',
+                          style: isSelected
+                              ? widget.textStyle ??
+                                    const TextStyle(fontSize: 14)
+                              : widget.hintStyle ??
+                                    TextStyle(
+                                      fontSize: 14,
+                                      color: colorScheme.onSurfaceVariant,
+                                    ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                  ],
+                      if (widget.trailingWidget != null)
+                        widget.trailingWidget!
+                      else
+                        AnimatedRotation(
+                          turns: _isOpen ? 0.5 : 0,
+                          duration: const Duration(milliseconds: 200),
+                          child: Icon(
+                            Icons.expand_more,
+                            color: colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -158,29 +170,142 @@ class _AppSelectorState extends State<AppSelector> {
     );
   }
 
-  void _showMenu(BuildContext context) {
-    final box = context.findRenderObject() as RenderBox;
-    final pos = box.localToGlobal(Offset.zero);
+  void _toggleDropdown() {
+    if (_isOpen) {
+      _closeDropdown();
+    } else {
+      _openDropdown();
+    }
+  }
 
-    showMenu<String?>(
-      context: context,
-      position: RelativeRect.fromLTRB(
-        pos.dx,
-        pos.dy + (widget.height ?? 48),
-        pos.dx + box.size.width,
-        0,
-      ),
-      items: widget.items
-          .map(
-            (item) => PopupMenuItem<String?>(
-              value: item,
-              onTap: () {
-                widget.onChanged?.call(item);
-              },
-              child: Text(item),
+  void _openDropdown() {
+    _overlayEntry = _createOverlayEntry();
+    Overlay.of(context).insert(_overlayEntry!);
+    setState(() => _isOpen = true);
+    _focusNode.requestFocus();
+  }
+
+  void _closeDropdown() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+    setState(() => _isOpen = false);
+  }
+
+  OverlayEntry _createOverlayEntry() {
+    final renderBox = context.findRenderObject() as RenderBox;
+    final size = renderBox.size;
+
+    return OverlayEntry(
+      builder: (context) => GestureDetector(
+        onTap: _closeDropdown,
+        behavior: HitTestBehavior.translucent,
+        child: Stack(
+          children: [
+            Positioned(
+              width: size.width,
+              child: CompositedTransformFollower(
+                link: _layerLink,
+                showWhenUnlinked: false,
+                offset: Offset(0, size.height + 4),
+                child: Material(
+                  elevation: 4,
+                  borderRadius: BorderRadius.circular(8),
+                  child: _DropdownList(
+                    items: widget.items,
+                    onItemSelected: (item) {
+                      widget.onChanged?.call(item);
+                      _closeDropdown();
+                    },
+                    maxHeight: 200,
+                  ),
+                ),
+              ),
             ),
-          )
-          .toList(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _DropdownList extends StatefulWidget {
+  final List<String> items;
+  final Function(String) onItemSelected;
+  final double maxHeight;
+
+  const _DropdownList({
+    required this.items,
+    required this.onItemSelected,
+    required this.maxHeight,
+  });
+
+  @override
+  State<_DropdownList> createState() => _DropdownListState();
+}
+
+class _DropdownListState extends State<_DropdownList>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 200),
+      vsync: this,
+    );
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeOut);
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return ClipRect(
+          child: Align(
+            alignment: Alignment.topCenter,
+            heightFactor: _animation.value,
+            child: child,
+          ),
+        );
+      },
+      child: Container(
+        constraints: BoxConstraints(maxHeight: widget.maxHeight),
+        decoration: BoxDecoration(
+          color: colorScheme.surfaceContainerHigh,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: colorScheme.inversePrimary),
+        ),
+        child: ListView.builder(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          shrinkWrap: true,
+          itemCount: widget.items.length,
+          itemBuilder: (context, index) {
+            final item = widget.items[index];
+            return InkWell(
+              onTap: () => widget.onItemSelected(item),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
+                child: Text(item, style: const TextStyle(fontSize: 14)),
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }
