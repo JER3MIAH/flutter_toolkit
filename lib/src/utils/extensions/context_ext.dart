@@ -5,6 +5,7 @@ extension ContextExtensions on BuildContext {
   // Device type checks
   bool get isMobile => screenWidth < 600;
   bool get isTablet => screenWidth >= 600 && screenWidth < 1200;
+  bool get isPad => screenWidth >= 900 && screenWidth < 1200;
   bool get isDesktop => screenWidth >= 1200;
 
   // MediaQuery shortcuts
