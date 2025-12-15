@@ -24,6 +24,8 @@ extension ContextExtensions on BuildContext {
   TextTheme get textTheme => theme.textTheme;
 
   // Navigation shortcuts
+  AppNavigator get navigator => AppNavigator(this);
+
   void push(Widget page) {
     Navigator.of(this).push(MaterialPageRoute(builder: (_) => page));
   }
@@ -34,6 +36,22 @@ extension ContextExtensions on BuildContext {
 
   void pushReplacement(Widget page) {
     Navigator.of(this).pushReplacement(MaterialPageRoute(builder: (_) => page));
+  }
+
+  void pushNamed(String routeName, {Object? arguments}) {
+    navigator.pushNamed(routeName, args: arguments);
+  }
+
+  void replaceNamed(String routeName, {Object? arguments}) {
+    navigator.replaceNamed(routeName, args: arguments);
+  }
+
+  void replaceAllNamed(String routeName, {Object? arguments}) {
+    navigator.replaceAllNamed(routeName, args: arguments);
+  }
+
+  void popRoute() {
+    navigator.popRoute();
   }
 
   Future<T?> showDialog<T>(
