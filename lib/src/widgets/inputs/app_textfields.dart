@@ -25,6 +25,7 @@ class OutlinedTextField extends StatelessWidget {
   final Function()? onTap;
   final Function(String)? onChanged;
   final bool showTopLabel;
+  final bool validateOnBuild;
 
   const OutlinedTextField({
     super.key,
@@ -52,13 +53,14 @@ class OutlinedTextField extends StatelessWidget {
     this.onTap,
     this.onChanged,
     this.showTopLabel = false,
+    this.validateOnBuild = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final ValueNotifier<bool> touchedNotifier = ValueNotifier(
-      controller?.text.isNotEmpty ?? false,
+      validateOnBuild || (controller?.text.isNotEmpty ?? false),
     );
 
     return ValueListenableBuilder<bool>(
