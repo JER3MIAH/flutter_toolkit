@@ -434,39 +434,36 @@ class _MultiSelectDropdownListState extends State<_MultiSelectDropdownList>
                 child: Row(
                   children: [
                     Expanded(
-                      child: SizedBox(
-                        height: 35,
-                        child: TextField(
-                          controller: _addNewController,
-                          decoration: InputDecoration(
-                            hintText: widget.addNewPlaceholder,
-                            hintStyle: TextStyle(
-                              fontSize: 12,
-                              color: colorScheme.onSurfaceVariant,
-                            ),
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 8,
-                            ),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: colorScheme.inversePrimary,
-                              ),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: colorScheme.inversePrimary,
-                              ),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.blue),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
+                      child: TextField(
+                        controller: _addNewController,
+                        decoration: InputDecoration(
+                          hintText: widget.addNewPlaceholder,
+                          hintStyle: TextStyle(
+                            fontSize: 12,
+                            color: colorScheme.onSurfaceVariant,
                           ),
-                          onSubmitted: (_) => _addNewItem(),
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 8,
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: colorScheme.inversePrimary,
+                            ),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: colorScheme.inversePrimary,
+                            ),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.blue),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
                         ),
+                        onSubmitted: (_) => _addNewItem(),
                       ),
                     ),
                     const SizedBox(width: 8),
