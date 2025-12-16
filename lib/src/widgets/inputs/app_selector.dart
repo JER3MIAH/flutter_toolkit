@@ -293,14 +293,10 @@ class _DropdownListState extends State<_DropdownList>
           itemCount: widget.items.length,
           itemBuilder: (context, index) {
             final item = widget.items[index];
-            return InkWell(
-              onTap: () => widget.onItemSelected(item),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 12,
-                ),
-                child: Text(item, style: const TextStyle(fontSize: 14)),
+            return Material(
+              child: ListTile(
+                onTap: () => widget.onItemSelected(item),
+                title: Text(item, style: const TextStyle(fontSize: 14)),
               ),
             );
           },
