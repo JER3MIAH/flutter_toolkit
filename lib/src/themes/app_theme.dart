@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_toolkit/src/themes/colors.dart';
 
-class AppTheme {
+class BlueTheme {
   static ThemeData light = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: AppColors.neutral100,
