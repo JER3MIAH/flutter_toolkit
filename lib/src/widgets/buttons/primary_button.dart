@@ -2,15 +2,53 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_toolkit/src/themes/themes.dart' show AppColors;
 
+/// A customizable elevated button widget with icon support.
+///
+/// Provides a Material 3 compliant primary action button with optional icon,
+/// haptic feedback, and flexible sizing options.
+///
+/// Features:
+/// - Customizable colors and text styling
+/// - Optional leading or icon-only display
+/// - Haptic feedback on tap
+/// - Support for expanded (full-width) or auto-sized button
+/// - Configurable height and font size
+///
+/// Example:
+/// ```dart
+/// PrimaryButton(
+///   title: 'Submit',
+///   onTap: () => print('Submitted'),
+///   expanded: true,
+///   icon: Icons.check,
+/// )
+/// ```
 class PrimaryButton extends StatelessWidget {
+  /// The button label text.
   final String title;
+
+  /// Callback triggered when the button is tapped.
   final VoidCallback? onTap;
+
+  /// Font size of the button text (default: 14).
   final double fontSize;
+
+  /// Height of the button (default: 36).
   final double bHeight;
+
+  /// If true, the button takes full available width.
   final bool expanded;
+
+  /// Background color of the button. Uses primary color if null.
   final Color? color;
+
+  /// Text color of the button (default: white).
   final Color? textColor;
+
+  /// Optional icon to display in the button.
   final IconData? icon;
+
+  /// If true, displays only the icon without the title.
   final bool iconOnly;
 
   const PrimaryButton({

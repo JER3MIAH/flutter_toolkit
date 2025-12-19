@@ -1,8 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+/// A widget that adds a scale animation (bounce effect) on tap.
+///
+/// Animates the child widget with a scaling effect when the user presses down,
+/// and reverses the animation on release or cancel. Includes haptic feedback
+/// for tactile response.
+///
+/// Example:
+/// ```dart
+/// TapBounce(
+///   onTap: () => print('Tapped!'),
+///   child: Container(
+///     color: Colors.blue,
+///     child: Text('Tap me'),
+///   ),
+/// )
+/// ```
 class TapBounce extends StatefulWidget {
+  /// The widget to apply the bounce animation to.
   final Widget child;
+
+  /// Callback triggered when the widget is tapped.
   final VoidCallback? onTap;
 
   const TapBounce({super.key, required this.child, this.onTap});

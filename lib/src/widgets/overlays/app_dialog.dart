@@ -1,6 +1,30 @@
 import 'package:flutter/material.dart';
 
+/// Utility class for displaying styled dialogs.
+///
+/// Provides static methods to show Material 3 compliant dialogs with
+/// consistent styling and optional customization.
+///
+/// Example:
+/// ```dart
+/// await AppDialog.dialog(
+///   context,
+///   MyDialogContent(),
+///   dismissible: true,
+/// );
+/// ```
 class AppDialog {
+  AppDialog._(); // Private constructor to prevent instantiation
+
+  /// Show a styled dialog with custom content.
+  ///
+  /// Parameters:
+  ///   - [context]: The build context
+  ///   - [content]: The widget to display in the dialog
+  ///   - [bgColor]: Optional background color (uses theme default if null)
+  ///   - [dismissible]: Whether tapping outside closes the dialog (default: true)
+  ///
+  /// Returns: A future that resolves with the dialog result when closed
   static Future<T?> dialog<T>(
     BuildContext context,
     Widget content, {

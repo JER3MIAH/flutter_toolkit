@@ -1,7 +1,32 @@
 import 'package:flutter/material.dart';
 
+/// Defines the available page transition animation types.
+///
+/// Supported transitions:
+/// - [slide]: Slide from right to left (default)
+/// - [fade]: Fade in/out transition
+/// - [scale]: Scale up/down transition
+/// - [bounce]: Bounce scale transition with elastic effect
 enum TransitionType { slide, fade, scale, bounce }
 
+/// Builds a [PageRouteBuilder] with the specified transition animation.
+///
+/// Creates smooth page transitions for named route navigation with customizable
+/// animation types. All transitions have a duration of 700ms.
+///
+/// Parameters:
+///   - [page]: The widget to display as the new page
+///   - [settings]: Route settings including route name and arguments
+///   - [transition]: The type of transition animation (default: bounce)
+///
+/// Returns: A [PageRouteBuilder] configured with the specified page and animation
+///
+/// Example:
+/// ```dart
+/// MaterialPageRoute(
+///   builder: (context) => buildRoute(MyPage(), settings)
+/// )
+/// ```
 PageRouteBuilder buildRoute(
   Widget page,
   RouteSettings settings, {

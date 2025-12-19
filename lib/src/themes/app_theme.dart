@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_toolkit/src/themes/colors.dart';
 
+/// Predefined Material 3 theme configurations for the application.
+///
+/// Provides light and dark theme variants with consistent styling
+/// using Material Design 3 principles.
 class BlueTheme {
+  BlueTheme._(); // Private constructor to prevent instantiation
+
+  /// Light theme configuration using Material 3 design system.
+  ///
+  /// Features:
+  /// - Neutral 100 as scaffold background for a light appearance
+  /// - Blue 500 as primary color for interactive elements
+  /// - Proper contrast ratios for accessibility
+  /// - Semantic colors for status indicators
   static ThemeData light = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: AppColors.neutral100,
@@ -26,6 +39,13 @@ class BlueTheme {
     ),
   );
 
+  /// Dark theme configuration using Material 3 design system.
+  ///
+  /// Features:
+  /// - Neutral 900 as scaffold background for a dark appearance
+  /// - Blue 500 as primary color maintaining consistency with light theme
+  /// - High contrast text on dark backgrounds
+  /// - Proper semantic colors for error and status indicators
   static ThemeData dark = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: AppColors.neutral900,

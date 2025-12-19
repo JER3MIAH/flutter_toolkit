@@ -2,13 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:flutter_toolkit/src/utils/utils.dart'
     show NoThumbScrollBehavior;
 
+/// A column widget with built-in scroll support and customizable spacing.
+///
+/// Combines [Column] with optional scrolling, padding, and scroll behavior.
+/// Automatically wraps content in [SafeArea] and applies [NoThumbScrollBehavior]
+/// to hide scroll indicators.
+///
+/// Example:
+/// ```dart
+/// AppColumn(
+///   padding: EdgeInsets.all(16),
+///   spacing: 12,
+///   children: [
+///     Text('Item 1'),
+///     Text('Item 2'),
+///     Text('Item 3'),
+///   ],
+/// )
+/// ```
 class AppColumn extends StatelessWidget {
+  /// The child widgets to arrange vertically.
   final List<Widget> children;
+
+  /// How to size the column (default: min).
   final MainAxisSize mainAxisSize;
+
+  /// Vertical alignment of children (default: start).
   final MainAxisAlignment mainAxisAlignment;
+
+  /// Horizontal alignment of children (default: center).
   final CrossAxisAlignment crossAxisAlignment;
+
+  /// Padding around the column content.
   final EdgeInsetsGeometry? padding;
+
+  /// If true, content is wrapped in a scrollable container (default: true).
   final bool shouldScroll;
+
+  /// Space between children in logical pixels (default: 0).
   final double spacing;
 
   const AppColumn({

@@ -3,55 +3,104 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+/// Navigation utility for managing page and dialog navigation.
+///
+/// Provides simplified methods for common navigation patterns including
+/// pushing routes, replacing routes, popping, showing dialogs, and bottom sheets.
+/// All methods are context-aware and use the Navigator API internally.
+///
+/// Example:
+/// ```dart
+/// final navigator = AppNavigator(context);
+/// navigator.pushNamed('/home');
+/// navigator.popRoute();
+/// ```
 class AppNavigator {
+  /// The build context used for navigation operations.
   final BuildContext context;
 
+  /// Creates an AppNavigator with the given build context.
   AppNavigator(this.context);
 
-  /// Use to push to a new route
+  /// Push a named route onto the navigation stack.
+  ///
+  /// Parameters:
+  ///   - [name]: The route name to navigate to
+  ///   - [args]: Optional arguments to pass to the route
   void pushNamed(String name, {Object? args}) {
     Navigator.of(context).pushNamed(name, arguments: args);
   }
 
-  /// Use to replace the current route with a new route
+  /// Replace the current route with a new named route.
+  ///
+  /// Parameters:
+  ///   - [name]: The route name to navigate to
+  ///   - [args]: Optional arguments to pass to the route
   void replaceNamed(String name, {Object? args}) {
     Navigator.of(context).pushReplacementNamed(name, arguments: args);
   }
 
-  /// Use to replace all routes with a new route
+  /// Replace all routes in the navigation stack with a new named route.
+  ///
+  /// Removes all existing routes from the stack before pushing the new route.
+  ///
+  /// Parameters:
+  ///   - [name]: The route name to navigate to
+  ///   - [args]: Optional arguments to pass to the route
   void replaceAllNamed(String name, {Object? args}) {
     Navigator.of(
       context,
     ).pushNamedAndRemoveUntil(name, (route) => false, arguments: args);
   }
 
-  /// Use to pop the current route
+  /// Pop the current route from the navigation stack.
+  ///
+  /// Does nothing if there's only one route in the stack.
   void popRoute() {
     if (Navigator.of(context).canPop()) {
       Navigator.of(context).pop();
     }
   }
 
-  /// Use to pop until the first route
+  /// Pop all routes until reaching the first (root) route.
+  ///
+  /// Only works if there are routes to pop.
   void popUntilFirst() {
     if (Navigator.of(context).canPop()) {
       Navigator.of(context).popUntil((route) => false);
     }
   }
 
-  /// Use to pop until a specific route name
+  /// Pop routes until reaching a specific named route.
+  ///
+  /// Parameters:
+  ///   - [routeName]: The name of the route to pop until
   void popUntilRoute(String routeName) {
     Navigator.of(context).popUntil(ModalRoute.withName(routeName));
   }
 
-  /// Use to pop dialog if shown
+  /// Pop a dialog if one is currently shown.
+  ///
+  /// Does nothing if no dialog is open.
   void popDialog() {
     if (Navigator.of(context).canPop()) {
       Navigator.of(context).pop();
     }
   }
 
-  //* Use to show modal bottom sheet
+  /// Show a modal bottom sheet with the given child widget.
+  ///
+  /// The sheet animates in from the bottom with customizable height,
+  /// background color, and scroll behavior.
+  ///
+  /// Parameters:
+  ///   - [child]: The widget to display in the bottom sheet
+  ///   - [isScrollControlled]: If true, the sheet can extend full height (default: true)
+  ///   - [useRootNavigator]: If true, uses the root navigator (default: true)
+  ///   - [backgroundColor]: The background color of the sheet
+  ///   - [maxHeight]: The maximum height of the sheet (default: 90% of screen height)
+  ///
+  /// Returns: A future that resolves when the sheet is dismissed
   Future<T?> showBottomSheet<T>({
     required Widget child,
     bool isScrollControlled = true,
@@ -88,6 +137,13 @@ class AppNavigator {
     );
   }
 
+  /// Exit the application.
+  ///
+  /// On Android, uses the system navigator exit. On other platforms,
+  /// exits the application process directly.
+  ///
+  /// Parameters:
+  ///   - [animated]: Whether to animate the exit on Android (default: true)
   Future<void> exitApp({bool animated = true}) async {
     if (Theme.of(context).platform == TargetPlatform.windows ||
         Theme.of(context).platform == TargetPlatform.linux ||

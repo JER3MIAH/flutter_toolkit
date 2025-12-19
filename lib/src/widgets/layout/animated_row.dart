@@ -1,6 +1,47 @@
 import 'package:flutter/material.dart';
 
+/// A row widget with staggered entrance animations for each child.
+///
+/// Animates children in sequence with fade and slide effects, creating a
+/// smooth entrance animation from left to right. Can use an external
+/// [AnimationController] or create its own.
+///
+/// Example:
+/// ```dart
+/// AnimatedRow(
+///   duration: Duration(milliseconds: 800),
+///   children: [
+///     Icon(Icons.star),
+///     Icon(Icons.star),
+///     Icon(Icons.star),
+///   ],
+/// )
+/// ```
 class AnimatedRow extends StatefulWidget {
+  /// Optional external animation controller for manual control.
+  final AnimationController? _animationController;
+
+  /// The child widgets to animate.
+  final List<Widget> children;
+
+  /// Duration of the complete animation sequence.
+  final Duration? duration;
+
+  /// Delay before animation starts.
+  final Duration? delay;
+
+  /// Horizontal alignment of children.
+  final MainAxisAlignment? mainAxisAlignment;
+
+  /// Axis direction (default: vertical).
+  final Axis direction;
+
+  /// Vertical alignment of children.
+  final CrossAxisAlignment? crossAxisAlignment;
+
+  /// How to size the row.
+  final MainAxisSize? mainAxisSize;
+
   const AnimatedRow({
     AnimationController? animationController,
     required this.children,
@@ -13,15 +54,6 @@ class AnimatedRow extends StatefulWidget {
     this.mainAxisSize,
   }) : _animationController = animationController;
 
-  final AnimationController? _animationController;
-  final List<Widget> children;
-  final Duration? duration;
-  final Duration? delay;
-  final MainAxisAlignment? mainAxisAlignment;
-  final Axis direction;
-  final CrossAxisAlignment? crossAxisAlignment;
-  final MainAxisSize? mainAxisSize;
-
   @override
   State<AnimatedRow> createState() => _AnimatedRowState();
 }
@@ -29,6 +61,7 @@ class AnimatedRow extends StatefulWidget {
 class _AnimatedRowState extends State<AnimatedRow>
     with TickerProviderStateMixin {
   late AnimationController _animationController;
+
   @override
   void initState() {
     super.initState();

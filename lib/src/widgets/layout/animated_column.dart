@@ -2,7 +2,51 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+/// A column widget with staggered entrance animations for each child.
+///
+/// Animates children in sequence with fade and slide effects, creating a
+/// smooth entrance animation. Can use an external [AnimationController] or
+/// create its own.
+///
+/// Example:
+/// ```dart
+/// AnimatedColumn(
+///   duration: Duration(milliseconds: 800),
+///   children: [
+///     Text('Item 1'),
+///     Text('Item 2'),
+///     Text('Item 3'),
+///   ],
+/// )
+/// ```
 class AnimatedColumn extends StatefulWidget {
+  /// Optional external animation controller for manual control.
+  final AnimationController? _animationController;
+
+  /// The child widgets to animate.
+  final List<Widget> children;
+
+  /// Duration of the complete animation sequence.
+  final Duration? duration;
+
+  /// Delay before animation starts.
+  final Duration? delay;
+
+  /// Space between children in logical pixels.
+  final double? spacing;
+
+  /// Vertical alignment of children.
+  final MainAxisAlignment? mainAxisAlignment;
+
+  /// Axis direction (default: vertical).
+  final Axis direction;
+
+  /// Horizontal alignment of children.
+  final CrossAxisAlignment? crossAxisAlignment;
+
+  /// How to size the column.
+  final MainAxisSize? mainAxisSize;
+
   const AnimatedColumn({
     AnimationController? animationController,
     required this.children,
@@ -16,16 +60,6 @@ class AnimatedColumn extends StatefulWidget {
     this.mainAxisSize,
   }) : _animationController = animationController;
 
-  final AnimationController? _animationController;
-  final List<Widget> children;
-  final Duration? duration;
-  final Duration? delay;
-  final double? spacing;
-  final MainAxisAlignment? mainAxisAlignment;
-  final Axis direction;
-  final CrossAxisAlignment? crossAxisAlignment;
-  final MainAxisSize? mainAxisSize;
-
   @override
   State<AnimatedColumn> createState() => _AnimatedColumnState();
 }
@@ -34,6 +68,7 @@ class _AnimatedColumnState extends State<AnimatedColumn>
     with TickerProviderStateMixin {
   AnimationController? _animationController;
   Timer? delay;
+
   @override
   void initState() {
     super.initState();

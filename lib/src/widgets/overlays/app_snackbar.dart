@@ -3,7 +3,37 @@ import 'package:flutter_toolkit/src/themes/themes.dart';
 import 'package:flutter_toolkit/src/utils/extensions/context_ext.dart';
 import 'package:flutter_toolkit/src/widgets/layout/gap.dart';
 
+/// Utility class for displaying styled snackbars.
+///
+/// Provides static methods to show toast-like notifications with
+/// status icons and consistent styling.
+///
+/// Example:
+/// ```dart
+/// AppSnackbar.show(
+///   context,
+///   title: 'Operation completed successfully!',
+/// );
+///
+/// AppSnackbar.show(
+///   context,
+///   title: 'An error occurred',
+///   isWarning: true,
+/// );
+/// ```
 class AppSnackbar {
+  AppSnackbar._(); // Private constructor to prevent instantiation
+
+  /// Show a snackbar notification with optional warning styling.
+  ///
+  /// Displays a snackbar at the bottom of the screen with an icon and message.
+  /// Only one snackbar is shown at a time (replaces previous if any).
+  ///
+  /// Parameters:
+  ///   - [context]: The build context
+  ///   - [title]: The message text to display
+  ///   - [duration]: How long to display the snackbar (default: 4 seconds)
+  ///   - [isWarning]: If true, shows error icon and color; success otherwise
   static void show(
     BuildContext context, {
     required String title,

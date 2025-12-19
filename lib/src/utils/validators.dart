@@ -1,8 +1,28 @@
-/// Validation utilities for common input validation patterns.
+/// Comprehensive validation utilities for common input validation patterns.
+///
+/// This class provides static methods for validating various types of user input
+/// such as email, password, phone numbers, URLs, and more. All validators return
+/// `null` if validation passes, or an error message if validation fails.
+///
+/// All methods support an [isOptional] parameter to allow empty/null values.
+///
+/// Example:
+/// ```dart
+/// final error = Validators.validateEmail(userInput);
+/// if (error != null) {
+///   print('Error: $error');
+/// }
+/// ```
 class Validators {
-  Validators._();
+  Validators._(); // Private constructor to prevent instantiation
 
-  /// Validates an email address
+  /// Validates an email address format.
+  ///
+  /// Parameters:
+  ///   - [value]: The email string to validate
+  ///   - [isOptional]: If true, null or empty values are allowed
+  ///
+  /// Returns: null if valid, error message if invalid
   static String? validateEmail(String? value, {bool isOptional = false}) {
     if ((value == null || value.isEmpty) && isOptional) return null;
     if (value == null || value.isEmpty) return 'Email is required';
@@ -15,7 +35,20 @@ class Validators {
     return null;
   }
 
-  /// Validates a password
+  /// Validates a password with strength requirements.
+  ///
+  /// Checks for:
+  /// - Minimum length (default: 8 characters)
+  /// - At least one uppercase letter
+  /// - At least one lowercase letter
+  /// - At least one number
+  ///
+  /// Parameters:
+  ///   - [value]: The password string to validate
+  ///   - [length]: Minimum password length required (default: 8)
+  ///   - [isOptional]: If true, null or empty values are allowed
+  ///
+  /// Returns: null if valid, error message if invalid
   static String? validatePassword(
     String? value, {
     int length = 8,
@@ -38,7 +71,13 @@ class Validators {
     return null;
   }
 
-  /// Validates that a field is not empty
+  /// Validates that a field is not empty.
+  ///
+  /// Parameters:
+  ///   - [value]: The field value to validate
+  ///   - [isOptional]: If true, null or empty values are allowed
+  ///
+  /// Returns: null if valid, error message if invalid
   static String? validateRequired(String? value, {bool isOptional = false}) {
     if ((value == null || value.isEmpty) && isOptional) return null;
     if (value == null || value.isEmpty) {
@@ -47,7 +86,20 @@ class Validators {
     return null;
   }
 
-  /// Validates a phone number
+  /// Validates a phone number format.
+  ///
+  /// Supports common phone number formats including:
+  /// - +1234567890
+  /// - (123) 456-7890
+  /// - 123-456-7890
+  /// - 123.456.7890
+  /// - 1234567890
+  ///
+  /// Parameters:
+  ///   - [value]: The phone number string to validate
+  ///   - [isOptional]: If true, null or empty values are allowed
+  ///
+  /// Returns: null if valid, error message if invalid
   static String? validatePhoneNumber(String? value, {bool isOptional = false}) {
     if ((value == null || value.isEmpty) && isOptional) return null;
     if (value == null || value.isEmpty) return 'Phone number is required';
@@ -60,7 +112,17 @@ class Validators {
     return null;
   }
 
-  /// Validates a URL
+  /// Validates a URL format.
+  ///
+  /// Ensures the URL:
+  /// - Is a valid URI format
+  /// - Starts with http:// or https://
+  ///
+  /// Parameters:
+  ///   - [value]: The URL string to validate
+  ///   - [isOptional]: If true, null or empty values are allowed
+  ///
+  /// Returns: null if valid, error message if invalid
   static String? validateUrl(String? value, {bool isOptional = false}) {
     if ((value == null || value.isEmpty) && isOptional) return null;
     if (value == null || value.isEmpty) return 'URL is required';
@@ -75,7 +137,17 @@ class Validators {
     }
   }
 
-  /// Validates a username
+  /// Validates a username format.
+  ///
+  /// Ensures the username:
+  /// - Is at least 3 characters long
+  /// - Contains only letters, numbers, and underscores
+  ///
+  /// Parameters:
+  ///   - [value]: The username string to validate
+  ///   - [isOptional]: If true, null or empty values are allowed
+  ///
+  /// Returns: null if valid, error message if invalid
   static String? validateUsername(String? value, {bool isOptional = false}) {
     if ((value == null || value.isEmpty) && isOptional) return null;
     if (value == null || value.isEmpty) return 'Username is required';
@@ -86,7 +158,16 @@ class Validators {
     return null;
   }
 
-  /// Validates that two fields match
+  /// Validates that two field values match.
+  ///
+  /// Useful for password confirmation or matching fields.
+  ///
+  /// Parameters:
+  ///   - [value]: The first value to compare
+  ///   - [matchValue]: The second value to compare
+  ///   - [isOptional]: If true, null or empty values are allowed
+  ///
+  /// Returns: null if values match, error message if they don't
   static String? validateMatch(
     String? value,
     String? matchValue, {
@@ -98,7 +179,14 @@ class Validators {
     return null;
   }
 
-  /// Validates minimum length
+  /// Validates minimum string length.
+  ///
+  /// Parameters:
+  ///   - [value]: The string to validate
+  ///   - [minLength]: The minimum required length
+  ///   - [isOptional]: If true, null or empty values are allowed
+  ///
+  /// Returns: null if valid, error message if invalid
   static String? validateMinLength(
     String? value,
     int minLength, {
@@ -112,7 +200,14 @@ class Validators {
     return null;
   }
 
-  /// Validates maximum length
+  /// Validates maximum string length.
+  ///
+  /// Parameters:
+  ///   - [value]: The string to validate
+  ///   - [maxLength]: The maximum allowed length
+  ///   - [isOptional]: If true, null or empty values are allowed
+  ///
+  /// Returns: null if valid, error message if invalid
   static String? validateMaxLength(
     String? value,
     int maxLength, {
@@ -126,7 +221,13 @@ class Validators {
     return null;
   }
 
-  /// Check if a string is a valid number
+  /// Validates that a string is a valid number.
+  ///
+  /// Parameters:
+  ///   - [value]: The string to validate as a number
+  ///   - [isOptional]: If true, null or empty values are allowed
+  ///
+  /// Returns: null if valid, error message if invalid
   static String? validateNumber(String? value, {bool isOptional = false}) {
     if ((value == null || value.isEmpty) && isOptional) return null;
     if (value == null || value.isEmpty) return 'Number is required';
@@ -134,7 +235,16 @@ class Validators {
     return null;
   }
 
-  /// Makes sure the values passed to each field doesn't go beyond the [maxTotal]
+  /// Validates that the total of multiple numeric fields doesn't exceed a maximum.
+  ///
+  /// Useful for distributing totals across multiple fields (e.g., percentages, scores).
+  ///
+  /// Parameters:
+  ///   - [values]: List of numeric string values to sum and validate
+  ///   - [isOptional]: If true, all empty/null values are allowed together
+  ///   - [maxTotal]: The maximum allowed total (default: 100)
+  ///
+  /// Returns: null if valid, error message if invalid
   static String? validateNumericFieldsTotal(
     List<String?> values, {
     bool isOptional = false,
@@ -167,7 +277,16 @@ class Validators {
     return null;
   }
 
-  /// Validates that a field contains non-empty text (not just spaces)
+  /// Validates that a field contains non-empty text (trimmed).
+  ///
+  /// Differs from [validateRequired] by checking trimmed strings,
+  /// which rejects strings containing only whitespace.
+  ///
+  /// Parameters:
+  ///   - [value]: The string to validate
+  ///   - [isOptional]: If true, null or empty values are allowed
+  ///
+  /// Returns: null if valid, error message if invalid
   static String? validateRequiredText(
     String? value, {
     bool isOptional = false,

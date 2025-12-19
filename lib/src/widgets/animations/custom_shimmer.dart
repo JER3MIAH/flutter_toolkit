@@ -2,21 +2,71 @@ import 'dart:ui' show lerpDouble;
 
 import 'package:flutter/material.dart';
 
-enum ShimmerDirection { ltr, rtl, ttb, btt }
+/// Direction of the shimmer animation effect.
+enum ShimmerDirection {
+  /// Left to right animation
+  ltr,
 
-/// Custom Shimmer Widget
-/// - If [child] is provided the shimmer will mask the child.
-/// - Otherwise it renders a rectangular placeholder of [width] x [height].
+  /// Right to left animation
+  rtl,
+
+  /// Top to bottom animation
+  ttb,
+
+  /// Bottom to top animation
+  btt,
+}
+
+/// A custom shimmer loading animation widget.
+///
+/// Creates a smooth loading placeholder effect with customizable direction,
+/// colors, and animation duration. Can either mask a child widget or render
+/// a rectangular placeholder.
+///
+/// Example:
+/// ```dart
+/// // As a placeholder
+/// CustomShimmer(
+///   width: 100,
+///   height: 20,
+///   borderRadius: BorderRadius.circular(4),
+/// )
+///
+/// // As a mask for content
+/// CustomShimmer(
+///   child: MyContentWidget(),
+/// )
+/// ```
 class CustomShimmer extends StatefulWidget {
+  /// The widget to apply the shimmer effect to.
+  /// If null, a rectangular placeholder is rendered.
   final Widget? child;
+
+  /// Width of the placeholder (only used if [child] is null).
   final double? width;
+
+  /// Height of the placeholder (only used if [child] is null).
   final double? height;
+
+  /// Border radius for the placeholder shape.
   final BorderRadius? borderRadius;
+
+  /// Base color of the shimmer effect (default: light gray).
   final Color baseColor;
+
+  /// Highlight color of the shimmer effect (default: lighter gray).
   final Color highlightColor;
+
+  /// Duration of one complete shimmer animation cycle (default: 1200ms).
   final Duration period;
+
+  /// Direction of the shimmer animation (default: left to right).
   final ShimmerDirection direction;
+
+  /// Width of the shimmer highlight as a fraction (0-1, default: 0.25).
   final double shimmerWidthFraction;
+
+  /// Animation curve for smooth motion (default: easeInOut).
   final Curve curve;
 
   const CustomShimmer({
