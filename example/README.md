@@ -1,6 +1,6 @@
 # Example App
 
-This example demonstrates the main features of the `flutter_toolkit` package.
+This example demonstrates the main features of the `toolkit_core` package.
 
 ## Features Demonstrated
 

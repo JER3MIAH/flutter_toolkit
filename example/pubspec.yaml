@@ -1,5 +1,5 @@
 name: example
-description: Example app for flutter_toolkit package
+description: Example app for toolkit_core package
 publish_to: "none"
 
 version: 1.0.0+1
@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_toolkit:
+  toolkit_core:
     path: ../
 
 dev_dependencies:

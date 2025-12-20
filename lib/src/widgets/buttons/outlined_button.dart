@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_toolkit/flutter_toolkit.dart';
+import 'package:toolkit_core/toolkit_core.dart';
 
 /// Outlined button widget with optional icon support.
 class AppOutlinedButton extends StatelessWidget {

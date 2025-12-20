@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_toolkit/flutter_toolkit.dart';
-import 'package:flutter_toolkit/src/widgets/buttons/outlined_button.dart' as tk;
+import 'package:toolkit_core/toolkit_core.dart';
+import 'package:toolkit_core/src/widgets/buttons/outlined_button.dart' as tk;
 
 /// A reusable dialog body with header, content, and action row.
 class DialogActionColumn extends StatelessWidget {
@@ -58,7 +58,7 @@ class DialogActionColumn extends StatelessWidget {
             ],
           ),
         ),
-        Divider(height: .5, color: AppColors.neutral200,),
+        Divider(height: .5, color: AppColors.neutral200),
         Padding(
           padding: const EdgeInsets.all(16),
           child: Column(

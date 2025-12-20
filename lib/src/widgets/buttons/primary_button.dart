@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_toolkit/src/themes/themes.dart' show AppColors;
+import 'package:toolkit_core/src/themes/themes.dart' show AppColors;
 
 /// A customizable elevated button widget with icon support.
 ///

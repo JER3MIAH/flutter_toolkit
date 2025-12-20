@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_toolkit/flutter_toolkit.dart';
+import 'package:toolkit_core/toolkit_core.dart';
 
 /// A beautiful custom 404 page not found widget.
 /// Can be used as a standalone page or within navigation error handling.

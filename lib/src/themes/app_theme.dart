@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_toolkit/src/themes/colors.dart';
+import 'package:toolkit_core/src/themes/colors.dart';
 
 /// Predefined Material 3 theme configurations for the application.
 ///

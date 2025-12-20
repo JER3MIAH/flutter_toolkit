@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_toolkit/flutter_toolkit.dart';
+import 'package:toolkit_core/toolkit_core.dart';
 
 class OutlinedTextField extends StatelessWidget {
   final TextEditingController? controller;

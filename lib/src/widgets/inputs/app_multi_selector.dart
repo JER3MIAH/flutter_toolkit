@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_toolkit/src/utils/extensions/context_ext.dart';
+import 'package:toolkit_core/src/utils/extensions/context_ext.dart';
 
 /// A custom multi-select dropdown with checkboxes.
 /// Similar to AppSelector but allows multiple selections.

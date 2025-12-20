@@ -1,4 +1,4 @@
-# flutter_toolkit
+# toolkit_core
 
 Material 3 ready UI toolkit that bundles themed widgets, form inputs, navigation helpers, validators, and logging utilities to speed up Flutter app development.
 
@@ -16,20 +16,20 @@ Add the package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-	flutter_toolkit: ^0.1.0
+	toolkit_core: ^0.1.0
 ```
 
 Run `flutter pub get` and import it where needed:
 
 ```dart
-import 'package:flutter_toolkit/flutter_toolkit.dart';
+import 'package:toolkit_core/toolkit_core.dart';
 ```
 
 ## Quick start
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:flutter_toolkit/flutter_toolkit.dart';
+import 'package:toolkit_core/toolkit_core.dart';
 
 void main() {
 	runApp(const MyApp());

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_toolkit/src/utils/utils.dart'
-    show NoThumbScrollBehavior;
+import 'package:toolkit_core/src/utils/utils.dart' show NoThumbScrollBehavior;
 
 /// A column widget with built-in scroll support and customizable spacing.
 ///

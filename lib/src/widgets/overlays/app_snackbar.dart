@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_toolkit/src/themes/themes.dart';
-import 'package:flutter_toolkit/src/utils/extensions/context_ext.dart';
-import 'package:flutter_toolkit/src/widgets/layout/gap.dart';
+import 'package:toolkit_core/src/themes/themes.dart';
+import 'package:toolkit_core/src/utils/extensions/context_ext.dart';
+import 'package:toolkit_core/src/widgets/layout/gap.dart';
 
 /// Utility class for displaying styled snackbars.
 ///

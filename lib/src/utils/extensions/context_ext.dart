@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_toolkit/flutter_toolkit.dart';
+import 'package:toolkit_core/toolkit_core.dart';
 
 /// Extension methods on [BuildContext] for convenient UI and navigation utilities.
 ///
