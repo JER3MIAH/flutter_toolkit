@@ -16,7 +16,7 @@ Add the package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-	toolkit_core: ^0.1.0
+	toolkit_core: ^0.2.0
 ```
 
 Run `flutter pub get` and import it where needed:
