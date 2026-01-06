@@ -7,14 +7,14 @@ import 'package:flutter/material.dart';
 ///
 /// Example:
 /// ```dart
-/// AppRadio<String>(
+/// KitRadio<String>(
 ///   value: 'option1',
 ///   groupValue: selectedValue,
 ///   activeColor: Colors.blue,
 ///   onChanged: (value) => setState(() => selectedValue = value),
 /// )
 /// ```
-class AppRadio<T> extends StatelessWidget {
+class KitRadio<T> extends StatelessWidget {
   /// The value represented by this radio button.
   final T value;
 
@@ -27,7 +27,7 @@ class AppRadio<T> extends StatelessWidget {
   /// Callback triggered when the radio button is selected.
   final void Function(T?) onChanged;
 
-  const AppRadio({
+  const KitRadio({
     super.key,
     required this.value,
     required this.onChanged,

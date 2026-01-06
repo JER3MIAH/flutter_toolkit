@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 /// - Neutral shades (grayscale for text, backgrounds, dividers)
 ///
 /// All colors are defined as static const values for optimal performance.
-class AppColors {
-  AppColors._(); // Private constructor to prevent instantiation
+class KitColors {
+  KitColors._(); // Private constructor to prevent instantiation
 
   // Base Colors
   static const white = Color(0xFFFFFFFF);

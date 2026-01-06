@@ -1,9 +1,9 @@
 name: toolkit_core
 description: "Material 3 ready UI toolkit with themed widgets, inputs, navigation helpers, validators, and loggers for Flutter apps."
-version: 0.2.1
+version: 0.3.0
 # homepage:
-repository: https://github.com/JER3MIAH/flutter_toolkit
-issue_tracker: https://github.com/JER3MIAH/flutter_toolkit/issues
+repository: https://github.com/JER3MIAH/flutter_toolkit //Update later
+issue_tracker: https://github.com/JER3MIAH/flutter_toolkit/issues //Update later
 
 environment:
   sdk: ^3.10.1

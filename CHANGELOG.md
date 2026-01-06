@@ -2,6 +2,24 @@
 
 All notable changes to this package will be documented here.
 
+## [0.3.0] - 2026-01-06
+
+### Changed
+
+- **BREAKING**: Renamed all "App" prefix components to "Kit" prefix for better package branding:
+  - `AppScaffold` → `KitScaffold`
+  - `AppColumn` → `KitColumn`
+  - `AppDialog` → `KitDialog`
+  - `AppSnackbar` → `KitSnackbar`
+  - `AppNavigator` → `KitNavigator`
+  - `AppSelector` → `KitSelector`
+  - `AppMultiSelector` → `KitMultiSelector`
+  - `AppRadio` → `KitRadio`
+  - `AppColors` → `KitColors`
+  - `AppLogger` → `KitLogger`
+  - `AppOutlinedButton` → `KitOutlinedButton`
+- Updated all documentation and examples to reflect the new naming convention
+
 ## [0.2.1] - 2026-01-01
 
 ### Documentation

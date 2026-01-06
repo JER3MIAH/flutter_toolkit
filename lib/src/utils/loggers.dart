@@ -2,27 +2,27 @@ import 'package:flutter/foundation.dart';
 
 /// Logging utility for debugging and monitoring application behavior.
 ///
-/// `AppLogger` provides a centralized logging system with support for different
+/// `KitLogger` provides a centralized logging system with support for different
 /// log levels (info, debug, warning, error, success) and context tagging.
 /// Logging is only active in debug mode and can be toggled programmatically.
 ///
 /// Example:
 /// ```dart
-/// AppLogger.info('App started');
-/// AppLogger.debug('User data: $user', tag: 'UserService');
-/// AppLogger.error('Failed to load', error: exception, stackTrace: stackTrace);
-/// AppLogger.success('Operation completed');
+/// KitLogger.info('App started');
+/// KitLogger.debug('User data: $user', tag: 'UserService');
+/// KitLogger.error('Failed to load', error: exception, stackTrace: stackTrace);
+/// KitLogger.success('Operation completed');
 /// ```
-class AppLogger {
-  AppLogger._(); // Private constructor to prevent instantiation
+class KitLogger {
+  KitLogger._(); // Private constructor to prevent instantiation
 
-  static const String _prefix = '[AppLogger]';
+  static const String _prefix = '[KitLogger]';
   static bool _isDebugMode = kDebugMode;
 
   /// Enable or disable all logging output.
   ///
   /// Use this to toggle logging at runtime based on environment or settings.
-  /// Example: `AppLogger.setDebugMode(false)` to disable logs in production.
+  /// Example: `KitLogger.setDebugMode(false)` to disable logs in production.
   static void setDebugMode(bool enabled) {
     _isDebugMode = enabled;
   }

@@ -68,8 +68,8 @@ extension ContextExtensions on BuildContext {
 
   // ============ Navigation Shortcuts ============
 
-  /// Get an [AppNavigator] instance for this context.
-  AppNavigator get navigator => AppNavigator(this);
+  /// Get a [KitNavigator] instance for this context.
+  KitNavigator get navigator => KitNavigator(this);
 
   /// Push a new page onto the navigation stack.
   ///
@@ -155,7 +155,7 @@ extension ContextExtensions on BuildContext {
     Color? bgColor,
     bool dismissible = true,
   }) {
-    return AppDialog.dialog(
+    return KitDialog.dialog(
       this,
       content,
       bgColor: bgColor,
@@ -180,7 +180,7 @@ extension ContextExtensions on BuildContext {
     Color? backgroundColor,
     double? maxHeight,
   }) {
-    return AppNavigator(this).showBottomSheet<T>(
+    return KitNavigator(this).showBottomSheet<T>(
       child: content,
       backgroundColor: backgroundColor,
       isScrollControlled: isScrollControlled,
@@ -194,7 +194,7 @@ extension ContextExtensions on BuildContext {
   /// Parameters:
   ///   - [message]: The error message to display
   void showErrorSnackBar(String message) {
-    AppSnackbar.show(this, title: message, isWarning: true);
+    KitSnackbar.show(this, title: message, isWarning: true);
   }
 
   /// Show a success snackbar with a checkmark icon.
@@ -202,7 +202,7 @@ extension ContextExtensions on BuildContext {
   /// Parameters:
   ///   - [message]: The success message to display
   void showSuccessSnackBar(String message) {
-    AppSnackbar.show(this, title: message, isWarning: false);
+    KitSnackbar.show(this, title: message, isWarning: false);
   }
 
   // Keyboard shortcut

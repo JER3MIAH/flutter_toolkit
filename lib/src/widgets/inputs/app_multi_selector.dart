@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:toolkit_core/src/utils/extensions/context_ext.dart';
 
 /// A custom multi-select dropdown with checkboxes.
-/// Similar to AppSelector but allows multiple selections.
+/// Similar to KitSelector but allows multiple selections.
 /// Users can also add new items that automatically get selected.
-class AppMultiSelector extends StatefulWidget {
+class KitMultiSelector extends StatefulWidget {
   /// The label displayed above the field.
   final String? labelText;
 
@@ -53,7 +53,7 @@ class AppMultiSelector extends StatefulWidget {
   /// Whether to show the dropdown trigger. Set to false to use only the content in a dialog.
   final bool isDropdown;
 
-  const AppMultiSelector({
+  const KitMultiSelector({
     super.key,
     this.labelText,
     this.hintText,
@@ -74,10 +74,10 @@ class AppMultiSelector extends StatefulWidget {
   });
 
   @override
-  State<AppMultiSelector> createState() => _AppMultiSelectorState();
+  State<KitMultiSelector> createState() => _KitMultiSelectorState();
 }
 
-class _AppMultiSelectorState extends State<AppMultiSelector> {
+class _KitMultiSelectorState extends State<KitMultiSelector> {
   late FocusNode _focusNode;
   OverlayEntry? _overlayEntry;
   final LayerLink _layerLink = LayerLink();
@@ -94,7 +94,7 @@ class _AppMultiSelectorState extends State<AppMultiSelector> {
   }
 
   @override
-  void didUpdateWidget(AppMultiSelector oldWidget) {
+  void didUpdateWidget(KitMultiSelector oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.items != widget.items) {
       _items = List.from(widget.items);

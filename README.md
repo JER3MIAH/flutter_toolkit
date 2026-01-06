@@ -16,7 +16,7 @@ Add the package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-	toolkit_core: ^0.2.0
+	toolkit_core: ^0.3.0
 ```
 
 Run `flutter pub get` and import it where needed:
@@ -60,7 +60,7 @@ class DemoScreen extends StatelessWidget {
 	Widget build(BuildContext context) {
 		final controller = TextEditingController();
 
-		return AppScaffold(
+		return KitScaffold(
 			appBar: AppBar(title: const Text('Toolkit')),
 			isLoading: false,
 			body: Padding(
@@ -82,7 +82,7 @@ class DemoScreen extends StatelessWidget {
 							title: 'Submit',
 							icon: Icons.check,
 							expanded: true,
-							onTap: () => AppSnackbar.show(
+							onTap: () => KitSnackbar.show(
 								context,
 								message: 'Submitted',
 							),
@@ -97,10 +97,10 @@ class DemoScreen extends StatelessWidget {
 
 ## Included
 
-- Widgets: `PrimaryButton`, `OutlinedTextField`, `AppScaffold`, `AppSnackbar`, `AppDialog`, `TapBounce`, shimmer loader
-- Navigation: `AppNavigator`, `buildRoute` helpers
-- Themes: `BlueTheme.light` / `BlueTheme.dark`, `AppColors`
-- Utilities: `Validators`, `logDebug`/`logError`, `AppScrollBehavior`
+- Widgets: `PrimaryButton`, `OutlinedTextField`, `KitScaffold`, `KitSnackbar`, `KitDialog`, `TapBounce`, shimmer loader
+- Navigation: `KitNavigator`, `buildRoute` helpers
+- Themes: `BlueTheme.light` / `BlueTheme.dark`, `KitColors`
+- Utilities: `Validators`, `logDebug`/`logError`, `KitScrollBehavior`
 - Extensions: `StringExt`, `NumExt`, `ContextExt` and more
 
 ## Contributing

@@ -58,7 +58,7 @@ class DialogActionColumn extends StatelessWidget {
             ],
           ),
         ),
-        Divider(height: .5, color: AppColors.neutral200),
+        Divider(height: .5, color: KitColors.neutral200),
         Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -72,7 +72,7 @@ class DialogActionColumn extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                child: tk.AppOutlinedButton(
+                child: tk.KitOutlinedButton(
                   title: cancelButtonTitle,
                   onTap: () => Navigator.of(context).maybePop(),
                   expanded: true,

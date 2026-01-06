@@ -49,9 +49,9 @@ class _DemoScreenState extends State<DemoScreen> {
       if (mounted) {
         setState(() => _isLoading = false);
 
-        AppSnackbar.show(context, title: 'Form submitted successfully!');
+        KitSnackbar.show(context, title: 'Form submitted successfully!');
 
-        AppLogger.debug(
+        KitLogger.debug(
           'Form submitted with name: ${_nameController.text}, email: ${_emailController.text}',
         );
       }
@@ -59,7 +59,7 @@ class _DemoScreenState extends State<DemoScreen> {
   }
 
   void _showDialog() {
-    AppDialog.dialog(
+    KitDialog.dialog(
       context,
       Padding(
         padding: const EdgeInsets.all(24),
@@ -80,8 +80,8 @@ class _DemoScreenState extends State<DemoScreen> {
               children: [
                 PrimaryButton(
                   title: 'Cancel',
-                  color: AppColors.neutral300,
-                  textColor: AppColors.black,
+                  color: KitColors.neutral300,
+                  textColor: KitColors.black,
                   onTap: () => Navigator.pop(context),
                 ),
                 const XGap(12),
@@ -90,7 +90,7 @@ class _DemoScreenState extends State<DemoScreen> {
                   icon: Icons.check,
                   onTap: () {
                     Navigator.pop(context);
-                    AppSnackbar.show(context, title: 'Action confirmed');
+                    KitSnackbar.show(context, title: 'Action confirmed');
                   },
                 ),
               ],
@@ -103,7 +103,7 @@ class _DemoScreenState extends State<DemoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return AppScaffold(
+    return KitScaffold(
       appBar: AppBar(
         title: const Text('Flutter Toolkit Demo'),
         centerTitle: true,
@@ -123,7 +123,7 @@ class _DemoScreenState extends State<DemoScreen> {
             StyledText(
               'A Material 3 UI toolkit with themed widgets and utilities',
               fontSize: 14,
-              color: AppColors.neutral600,
+              color: KitColors.neutral600,
             ),
             const YGap(32),
 
@@ -176,7 +176,7 @@ class _DemoScreenState extends State<DemoScreen> {
                 Expanded(
                   child: PrimaryButton(
                     title: 'Show Dialog',
-                    color: AppColors.blue700,
+                    color: KitColors.blue700,
                     onTap: _showDialog,
                   ),
                 ),
@@ -184,9 +184,9 @@ class _DemoScreenState extends State<DemoScreen> {
                 Expanded(
                   child: PrimaryButton(
                     title: 'Error',
-                    color: AppColors.red500,
+                    color: KitColors.red500,
                     icon: Icons.error_outline,
-                    onTap: () => AppSnackbar.show(
+                    onTap: () => KitSnackbar.show(
                       context,
                       title: 'This is an error message',
                       isWarning: true,
@@ -206,21 +206,21 @@ class _DemoScreenState extends State<DemoScreen> {
             const YGap(16),
 
             TapBounce(
-              onTap: () => AppSnackbar.show(context, title: 'Bounced!'),
+              onTap: () => KitSnackbar.show(context, title: 'Bounced!'),
               child: Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: AppColors.blue50,
+                  color: KitColors.blue50,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: AppColors.blue500),
+                  border: Border.all(color: KitColors.blue500),
                 ),
                 child: const Row(
                   children: [
-                    Icon(Icons.touch_app, color: AppColors.blue500),
+                    Icon(Icons.touch_app, color: KitColors.blue500),
                     XGap(12),
                     StyledText(
                       'Tap me for bounce animation',
-                      color: AppColors.blue700,
+                      color: KitColors.blue700,
                       fontWeight: FontWeight.w500,
                     ),
                   ],
@@ -241,10 +241,10 @@ class _DemoScreenState extends State<DemoScreen> {
               spacing: 12,
               runSpacing: 12,
               children: [
-                _ColorBox(color: AppColors.blue500, label: 'Primary'),
-                _ColorBox(color: AppColors.red500, label: 'Error'),
-                _ColorBox(color: AppColors.green500, label: 'Success'),
-                _ColorBox(color: AppColors.neutral700, label: 'Neutral'),
+                _ColorBox(color: KitColors.blue500, label: 'Primary'),
+                _ColorBox(color: KitColors.red500, label: 'Error'),
+                _ColorBox(color: KitColors.green500, label: 'Success'),
+                _ColorBox(color: KitColors.neutral700, label: 'Neutral'),
               ],
             ),
             const YGap(40),
@@ -281,7 +281,7 @@ class _ColorBox extends StatelessWidget {
           ),
         ),
         const YGap(8),
-        StyledText(label, fontSize: 12, color: AppColors.neutral600),
+        StyledText(label, fontSize: 12, color: KitColors.neutral600),
       ],
     );
   }

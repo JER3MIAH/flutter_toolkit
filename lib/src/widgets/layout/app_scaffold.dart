@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 ///
 /// Example:
 /// ```dart
-/// AppScaffold(
+/// KitScaffold(
 ///   appBar: AppBar(title: Text('Home')),
 ///   body: MyContent(),
 ///   isLoading: isLoading,
 ///   floatingActionButton: FloatingActionButton(onPressed: () {}),
 /// )
 /// ```
-class AppScaffold extends StatelessWidget {
+class KitScaffold extends StatelessWidget {
   /// The main content widget displayed in the scaffold body.
   final Widget body;
 
@@ -40,7 +40,7 @@ class AppScaffold extends StatelessWidget {
   /// Optional bottom navigation bar or app bar.
   final Widget? bottomAppBar;
 
-  const AppScaffold({
+  const KitScaffold({
     super.key,
     required this.body,
     this.backgroundColor,

@@ -10,19 +10,19 @@ import 'package:toolkit_core/src/widgets/layout/gap.dart';
 ///
 /// Example:
 /// ```dart
-/// AppSnackbar.show(
+/// KitSnackbar.show(
 ///   context,
 ///   title: 'Operation completed successfully!',
 /// );
 ///
-/// AppSnackbar.show(
+/// KitSnackbar.show(
 ///   context,
 ///   title: 'An error occurred',
 ///   isWarning: true,
 /// );
 /// ```
-class AppSnackbar {
-  AppSnackbar._(); // Private constructor to prevent instantiation
+class KitSnackbar {
+  KitSnackbar._(); // Private constructor to prevent instantiation
 
   /// Show a snackbar notification with optional warning styling.
   ///
@@ -52,14 +52,14 @@ class AppSnackbar {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
         side: BorderSide(
-          color: isWarning ? AppColors.red500 : colorScheme.inversePrimary,
+          color: isWarning ? KitColors.red500 : colorScheme.inversePrimary,
         ),
       ),
       content: Row(
         children: [
           Icon(
             isWarning ? Icons.info : Icons.check_circle,
-            color: isWarning ? AppColors.red500 : AppColors.green500,
+            color: isWarning ? KitColors.red500 : KitColors.green500,
           ),
           XGap(12),
           Expanded(
@@ -77,7 +77,7 @@ class AppSnackbar {
             child: Icon(
               Icons.clear,
               color: isWarning
-                  ? AppColors.red500
+                  ? KitColors.red500
                   : colorScheme.onSurfaceVariant,
             ),
           ),

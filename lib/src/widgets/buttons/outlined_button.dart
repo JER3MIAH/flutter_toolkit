@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:toolkit_core/toolkit_core.dart';
 
 /// Outlined button widget with optional icon support.
-class AppOutlinedButton extends StatelessWidget {
+class KitOutlinedButton extends StatelessWidget {
   final String title;
   final VoidCallback? onTap;
   final double fontSize;
@@ -14,7 +14,7 @@ class AppOutlinedButton extends StatelessWidget {
   final IconData? icon;
   final bool iconOnly;
 
-  const AppOutlinedButton({
+  const KitOutlinedButton({
     super.key,
     required this.title,
     this.onTap,
@@ -29,7 +29,7 @@ class AppOutlinedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final borderCol = borderColor ?? AppColors.neutral200;
+    final borderCol = borderColor ?? KitColors.neutral200;
     final textCol = textColor ?? context.colors.onSurface;
 
     return ElevatedButton(

@@ -9,7 +9,7 @@ import 'package:toolkit_core/src/utils/utils.dart' show NoThumbScrollBehavior;
 ///
 /// Example:
 /// ```dart
-/// AppColumn(
+/// KitColumn(
 ///   padding: EdgeInsets.all(16),
 ///   spacing: 12,
 ///   children: [
@@ -19,7 +19,7 @@ import 'package:toolkit_core/src/utils/utils.dart' show NoThumbScrollBehavior;
 ///   ],
 /// )
 /// ```
-class AppColumn extends StatelessWidget {
+class KitColumn extends StatelessWidget {
   /// The child widgets to arrange vertically.
   final List<Widget> children;
 
@@ -41,7 +41,7 @@ class AppColumn extends StatelessWidget {
   /// Space between children in logical pixels (default: 0).
   final double spacing;
 
-  const AppColumn({
+  const KitColumn({
     super.key,
     required this.children,
     this.mainAxisSize = MainAxisSize.min,

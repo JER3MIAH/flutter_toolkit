@@ -7,10 +7,10 @@ This example demonstrates the main features of the `toolkit_core` package.
 - **Themes**: Material 3 light/dark theme support with `BlueTheme`
 - **Form Components**: `OutlinedTextField` with validation
 - **Buttons**: `PrimaryButton` with icons and colors
-- **Overlays**: `AppSnackbar` and `AppDialog`
+- **Overlays**: `KitSnackbar` and `KitDialog`
 - **Animations**: `TapBounce` effect
 - **Utilities**: Validators, loggers, and scroll behavior
-- **Layout**: `AppScaffold` with loading overlay, `Gap` spacing widgets
+- **Layout**: `KitScaffold` with loading overlay, `Gap` spacing widgets
 
 ## Running the Example
 

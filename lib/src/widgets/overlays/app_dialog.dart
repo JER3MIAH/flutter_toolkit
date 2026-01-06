@@ -7,14 +7,14 @@ import 'package:flutter/material.dart';
 ///
 /// Example:
 /// ```dart
-/// await AppDialog.dialog(
+/// await KitDialog.dialog(
 ///   context,
 ///   MyDialogContent(),
 ///   dismissible: true,
 /// );
 /// ```
-class AppDialog {
-  AppDialog._(); // Private constructor to prevent instantiation
+class KitDialog {
+  KitDialog._(); // Private constructor to prevent instantiation
 
   /// Show a styled dialog with custom content.
   ///

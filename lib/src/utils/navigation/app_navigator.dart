@@ -11,16 +11,16 @@ import 'package:flutter/services.dart';
 ///
 /// Example:
 /// ```dart
-/// final navigator = AppNavigator(context);
+/// final navigator = KitNavigator(context);
 /// navigator.pushNamed('/home');
 /// navigator.popRoute();
 /// ```
-class AppNavigator {
+class KitNavigator {
   /// The build context used for navigation operations.
   final BuildContext context;
 
-  /// Creates an AppNavigator with the given build context.
-  AppNavigator(this.context);
+  /// Creates a KitNavigator with the given build context.
+  KitNavigator(this.context);
 
   /// Push a named route onto the navigation stack.
   ///

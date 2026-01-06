@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 /// A custom dropdown selector that matches the OutlinedTextField design.
 /// Features a clean outline border, label support, and a trailing widget.
-class AppSelector extends StatefulWidget {
+class KitSelector extends StatefulWidget {
   /// The label displayed above the field.
   final String? labelText;
 
@@ -45,7 +45,7 @@ class AppSelector extends StatefulWidget {
   /// Show label at the top.
   final bool showTopLabel;
 
-  const AppSelector({
+  const KitSelector({
     super.key,
     this.labelText,
     this.hintText,
@@ -64,10 +64,10 @@ class AppSelector extends StatefulWidget {
   });
 
   @override
-  State<AppSelector> createState() => _AppSelectorState();
+  State<KitSelector> createState() => _KitSelectorState();
 }
 
-class _AppSelectorState extends State<AppSelector> {
+class _KitSelectorState extends State<KitSelector> {
   late FocusNode _focusNode;
   OverlayEntry? _overlayEntry;
   final LayerLink _layerLink = LayerLink();

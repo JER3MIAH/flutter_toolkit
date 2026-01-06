@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:toolkit_core/src/themes/themes.dart' show AppColors;
+import 'package:toolkit_core/src/themes/themes.dart' show KitColors;
 
 /// A customizable elevated button widget with icon support.
 ///
@@ -85,7 +85,7 @@ class PrimaryButton extends StatelessWidget {
         ),
       ),
       child: iconOnly && icon != null
-          ? Icon(icon, color: textColor ?? AppColors.white)
+          ? Icon(icon, color: textColor ?? KitColors.white)
           : Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -94,7 +94,7 @@ class PrimaryButton extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 8.0),
                     child: Icon(
                       icon,
-                      color: textColor ?? AppColors.white,
+                      color: textColor ?? KitColors.white,
                       size: fontSize + 2,
                     ),
                   ),
@@ -102,7 +102,7 @@ class PrimaryButton extends StatelessWidget {
                   title,
                   style: TextStyle(
                     fontSize: fontSize,
-                    color: textColor ?? AppColors.white,
+                    color: textColor ?? KitColors.white,
                   ),
                 ),
               ],
